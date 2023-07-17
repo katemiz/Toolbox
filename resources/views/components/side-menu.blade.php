@@ -4,6 +4,13 @@
       <li><a href="/calculate/wind-force">Wind Force</a></li>
       <li><a>Customers</a></li>
     </ul>
+
+    <p class="menu-label">Inertia</p>
+    <ul class="menu-list">
+      <li><a href="/calculate/area-inertia">Area Inertia</a></li>
+    </ul>
+
+
     <p class="menu-label">
       Administration
     </p>

@@ -31,6 +31,9 @@ Route::get('/', function () {
         return view('calculate-windforce');
     });
 
+    Route::get('/calculate/area-inertia', function () {
+        return view('calculate-area-inertia');
+    });
 
 
 // });
