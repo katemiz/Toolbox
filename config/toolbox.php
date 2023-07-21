@@ -2,7 +2,9 @@
 
 return [
 
-    "areainertia" => [
+
+
+    "area-inertia" => [
         "title" => "Area Inertia",
         "subtitle" => "Area Inertia Calculation of Sections"
     ],
@@ -12,9 +14,14 @@ return [
         "subtitle" => "Area Inertia Calculation of Sections"
     ],
 
-    "windforce" => [
+    "wind-load" => [
         "title" => "Wind Load",
         "subtitle" => "Wind Pressure and Force Calculation"
+    ],
+
+    "welcome" => [
+        "title" => "Engineering Utilities",
+        "subtitle" => "Everyday hands-on utilities for engineers"
     ]
 
 ];
