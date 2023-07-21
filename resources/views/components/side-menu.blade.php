@@ -1,8 +1,7 @@
 <aside class="menu">
     <p class="menu-label">Wind Force</p>
     <ul class="menu-list">
-      <li><a href="/calculate/wind-force">Wind Force</a></li>
-      <li><a>Customers</a></li>
+      <li><a wire:click="menuClick('wind-force')">Wind Force</a></li>
     </ul>
 
     <p class="menu-label">Inertia</p>

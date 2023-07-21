@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Livewire\Calculation;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +26,12 @@ Route::get('/', function () {
 
 
     // Calculate
-    Route::get('/calculate', function () {
-        return view('calculate');
-    });
+    // Route::get('/calculate', function () {
+    //     return view('calculate');
+    // });
+
+    Route::get('/calculate', Calculation::class);
+
 
     Route::get('/calculate/wind-force', function () {
         return view('calculate-windforce');
