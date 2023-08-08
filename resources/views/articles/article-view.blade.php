@@ -29,7 +29,7 @@
 </div>
 @endif
 
-<a wire:click="listAll({{ $article->id }})">List All</a>
+<a wire:click="listAll()">List All</a>
 
 
 <div class="card">

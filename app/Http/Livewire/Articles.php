@@ -39,7 +39,11 @@ class Articles extends Component
 
     public function render()
     {
-        $this->articles = Article::all();
+        if (request('idArticle')) {
+            $this->viewArticle(request('idArticle'));
+        } else {
+            $this->articles = Article::all();
+        }
         return view('articles.articles-home');
     }
 
@@ -83,7 +87,6 @@ class Articles extends Component
     public function viewArticle($idArticle)
     {
         $this->article = Article::find($idArticle);
-
         $this->isAdd = false;
         $this->isEdit = false;
         $this->isList = false;
@@ -91,16 +94,6 @@ class Articles extends Component
 
     }
 
-    public function show($idArticle)
-    {
-        $this->article = Article::find($idArticle);
-
-        $this->isAdd = false;
-        $this->isEdit = false;
-        $this->isList = false;
-        $this->isView = true;
-
-    }
 
 
 

@@ -46,7 +46,7 @@ Route::get('/', function () {
 
     Route::get('/articles', Articles::class);
 
-    Route::get('/articles/{idArticle}', Articles\show::class);
+    Route::get('/articles/{idArticle}', Articles::class);
 
 
 
