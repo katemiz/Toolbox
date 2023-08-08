@@ -31,17 +31,12 @@
                 </a>
 
 
-
-
-
-
-
-
-
-
-
-
-
+                <a href="/articles" class="navbar-item icon-text">
+                    <span class="icon has-text-link">
+                        <x-carbon-radio />
+                    </span>
+                    <span>Articles</span>
+                </a>
 
             @endif
 
@@ -57,7 +52,6 @@
                 <p class="navbar-link">
                     <span class="icon">
                         {{-- <x-icon icon="user" fill="{{config('constants.icons.color.dark')}}"/> --}}
-
                     </span>
                     <span class="mx-3 has-text-right">
                         {{ Auth::user()->name }} {{ Auth::user()->lastname }}
@@ -122,6 +116,6 @@
       Current Project : {{ session('current_project_name') }}
     </p>
 </section>
-    
+
 @endif
 

@@ -104,7 +104,7 @@
                     @default
 
                         <figure class="image is-1by1">
-                            <img src="{{ asset('/images/eng_utilities.svg') }}" alt="The Process Flow" on:click="{showImg}">
+                            <img src="{{ asset('/images/eng_utilities.svg') }}" alt="The Process Flow">
                         </figure>
 
                       @break;

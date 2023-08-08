@@ -10,6 +10,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link rel="stylesheet" href="{{ asset('/css/sweetalert2_min.css') }}">
     <script src="{{ asset('/js/sweetalert2.min.js') }}"></script> --}}
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @livewireStyles
 </head>
 <body>

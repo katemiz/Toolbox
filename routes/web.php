@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\Calculation;
+use App\Http\Livewire\Articles;
+
 
 
 /*
@@ -40,6 +42,12 @@ Route::get('/', function () {
     Route::get('/calculate/area-inertia', function () {
         return view('calculate-area-inertia');
     });
+
+
+    Route::get('/articles', Articles::class);
+
+    Route::get('/articles/{idArticle}', Articles\show::class);
+
 
 
 // });
