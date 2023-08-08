@@ -30,6 +30,8 @@
 @endif
 
 <a wire:click="listAll()">List All</a>
+<a wire:click="addArticle()">Add New</a>
+
 
 
 <div class="card">

@@ -23,6 +23,9 @@ class Articles extends Component
     public $isList = true;
     public $isView = false;
 
+    public $search = '';
+    public $sortField = 'prop1';
+    public $sortDirection = 'asc';
 
     /**
      * List of add/edit form rules
@@ -42,7 +45,19 @@ class Articles extends Component
         if (request('idArticle')) {
             $this->viewArticle(request('idArticle'));
         } else {
-            $this->articles = Article::all();
+
+            $this->articles = Article::all()->paginate(5);
+
+            // $this->articles = Article::where('prop1', 'LIKE', "%$this->search%")
+            // ->orWhere('prop1', 'LIKE', "%$this->search%")
+            // ->orderBy($this->sortField,$this->sortDirection)
+            // ->paginate(env('RESULTS_PER_PAGE'));
+
+
+            // search macro is in Providers/AppServiceProvider boot function
+            // $this->articles = Article::search('prop1',$this->search)->orderBy($this->sortField,$this->sortDirection)->paginate(env('RESULTS_PER_PAGE'));
+
+            //dd($this->articles);
         }
         return view('articles.articles-home');
     }
