@@ -105,14 +105,14 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4"> EDB-{{ $article->id }}</p>
+              <p class="title is-4"> HU-{{ $article->id }}</p>
               <p class="subtitle is-6">@johnsmith</p>
             </div>
         </div>
 
 
 
-        EDB-{{ $article->id }}
+        HU-{{ $article->id }}
         {{ $article->prop1 }}
         {{ $article->prop2 }}
 

@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Calculation;
 use App\Http\Livewire\Articles;
 
-
-
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +46,9 @@ Route::get('/', function () {
     Route::get('/articles', Articles::class);
 
     Route::get('/articles/{idArticle}', Articles::class);
+
+    // MAIL
+    Route::get('send-mail', [MailController::class, 'index']);
 
 
 
