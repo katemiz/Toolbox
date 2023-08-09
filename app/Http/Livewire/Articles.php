@@ -13,7 +13,6 @@ class Articles extends Component
 
     public $idArticle;
     public $article = false;
-    public $articles;
 
     public $prop1;
     public $prop2;
@@ -42,24 +41,20 @@ class Articles extends Component
 
     public function render()
     {
+        $articles = [];
+
         if (request('idArticle')) {
             $this->viewArticle(request('idArticle'));
         } else {
 
-            $this->articles = Article::all()->paginate(5);
-
-            // $this->articles = Article::where('prop1', 'LIKE', "%$this->search%")
-            // ->orWhere('prop1', 'LIKE', "%$this->search%")
-            // ->orderBy($this->sortField,$this->sortDirection)
-            // ->paginate(env('RESULTS_PER_PAGE'));
-
-
-            // search macro is in Providers/AppServiceProvider boot function
-            // $this->articles = Article::search('prop1',$this->search)->orderBy($this->sortField,$this->sortDirection)->paginate(env('RESULTS_PER_PAGE'));
-
-            //dd($this->articles);
+            $articles = Article::where('prop1', 'LIKE', "%$this->search%")
+            ->orWhere('prop1', 'LIKE', "%$this->search%")
+            ->orderBy($this->sortField,$this->sortDirection)
+            ->paginate(env('RESULTS_PER_PAGE'));
         }
-        return view('articles.articles-home');
+        return view('articles.articles-home',[
+            'articles' => $articles
+        ]);
     }
 
 
