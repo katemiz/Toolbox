@@ -82,6 +82,13 @@ return [
         "submitText" => "Update Requirement",
     ],
 
+    "release" => [
+        "start" => [
+            "title" => 'Articles',
+            "subtitle" => 'Start Release Process'
+        ]
+    ],
+
     "cu_route" => "/requirements/store/",
 
     "form" => [

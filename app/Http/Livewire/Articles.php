@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\Article;
+use App\Models\User;
+
 
 class Articles extends Component
 {
@@ -21,6 +23,14 @@ class Articles extends Component
     public $isEdit = false;
     public $isList = true;
     public $isView = false;
+    public $isRelease = false;
+
+    public $checker = false;
+    public $approver = false;
+
+    public $checkers = [];
+    public $approvers = [];
+
 
     public $search = '';
     public $sortField = 'prop1';
@@ -39,6 +49,9 @@ class Articles extends Component
     ];
 
 
+
+
+
     public function render()
     {
         $articles = [];
@@ -51,10 +64,15 @@ class Articles extends Component
             ->orWhere('prop1', 'LIKE', "%$this->search%")
             ->orderBy($this->sortField,$this->sortDirection)
             ->paginate(env('RESULTS_PER_PAGE'));
+
+            // dd(['aa'=>gettype($articles)]);
+
         }
+
         return view('articles.articles-home',[
             'articles' => $articles
         ]);
+
     }
 
 
@@ -180,6 +198,32 @@ class Articles extends Component
         $this->isEdit = false;
         $this->isList = true;
         $this->isView = false;
+    }
+
+
+    public function startRelease($idArticle)
+    {
+        $this->isAdd = false;
+        $this->isEdit = false;
+        $this->isList = false;
+        $this->isView = false;
+        $this->isRelease = true;
+
+        session()->flash('release-start','Your are statrting article release process.!');
+
+        $checkers = User::role('eng_checker')->get();
+        $approvers = User::role('eng_approvers')->get();
+
+        if (count($checkers) === 1) {
+
+            $this->checker = $checkers["0"];
+            $this->approver = $approvers["0"];
+
+        }
+
+
+        // dd($idArticle);
+
     }
 
 

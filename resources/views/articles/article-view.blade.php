@@ -65,29 +65,27 @@
                               <span class="icon is-small"><x-carbon-edit /></span>
                               <span>Edit</span>
                             </button>
-                          </p>
+                        </p>
 
                     </div>
 
                 </div>
                 <div class="column has-text-right">
-                    <div class="field has-addons is-pulled-right	 ">
-
-
+                    <div class="field has-addons is-pulled-right">
 
                         <p class="control ml-1">
-                            <button class="button is-dark is-light is-small" wire:click="addArticle()">
-                              <span class="icon has-text-warning is-small"><x-carbon-stamp /></span>
-                              <span>Release</span>
-                            </button>
-                          </p>
+                        <button class="button is-dark is-light is-small" wire:click="startRelease({{ $article->id }})">
+                            <span class="icon has-text-warning is-small"><x-carbon-stamp /></span>
+                            <span>Release</span>
+                        </button>
+                        </p>
 
-                          <p class="control ml-1">
-                            <button class="button is-dark is-light is-small" wire:click="addArticle()">
-                              <span class="icon is-small"><x-carbon-change-catalog /></span>
-                              <span>Revise</span>
-                            </button>
-                          </p>
+                        <p class="control ml-1">
+                        <button class="button is-dark is-light is-small" wire:click="addArticle()">
+                            <span class="icon is-small"><x-carbon-change-catalog /></span>
+                            <span>Revise</span>
+                        </button>
+                        </p>
 
                     </div>
                 </div>

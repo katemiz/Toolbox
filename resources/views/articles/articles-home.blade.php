@@ -15,6 +15,12 @@
         @include('articles.article-view')
     @endif
 
+    {{-- RELEASE --}}
+    @if ($isRelease)
+
+        @include('articles.article-release-form')
+    @endif
+
 </section>
 
 
