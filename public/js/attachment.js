@@ -60,6 +60,8 @@ function getNames() {
         //     <span class="tag is-black is-light">Alex Smith</span>
         // </div>
 
+        console.log(dosya.name)
+
         outerDiv = document.createElement('div')
         outerDiv.id = 'f'+key
         outerDiv.classList.add('tags','has-addons','my-0','py-0')

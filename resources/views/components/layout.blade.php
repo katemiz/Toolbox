@@ -13,7 +13,7 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @livewireStyles
+    {{-- @livewireStyles --}}
 </head>
 <body>
 
@@ -23,6 +23,6 @@
 
     @include('components.footer')
 
-    @livewireScripts
+    {{-- @livewireScripts --}}
 </body>
 </html>

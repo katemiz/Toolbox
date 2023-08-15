@@ -1,7 +1,7 @@
 <div class="column box">
 
 
-    <script src="{{ asset('/js/attachment.js') }}"></script>
+    {{-- <script src="{{ asset('/js/attachment.js') }}"></script> --}}
 
 
         <div class="column">
@@ -35,11 +35,7 @@
 
             {{-- @role(config('requirements.roles.w')) --}}
 
-            <form action="/upload-attach/{{$model}}/{{$modelId}}" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                <input type="hidden" id="filesToUpload" name="filesToUpload" value="0" autocomplete="off">
-                {{-- <input type="hidden" id="route_redirect" name="route_redirect" value="{{$redirect}}" autocomplete="off"> --}}
+            <form wire:submit="uploadAttach" >
 
                 <div class="columns">
 
@@ -48,10 +44,10 @@
                             <input
                                 class="file-input"
                                 type="file"
-                                name="dosyalar[]"
+                                wire:model="dosyalar"
                                 id="fupload"
                                 multiple
-                                onchange="getNames()" />
+                                 />
                             <span class="file-cta">
                                 <span class="file-icon"><x-carbon-document-multiple-02 /></span>
                                 <span class="file-label has-text-centered">Add Files</span>
@@ -60,13 +56,27 @@
                     </div>
 
                     <div class="column">
-                        <p class="notification is-size-7 has-text-gray p-1" id="list_header">No files to upload!</p>
-                        <div id="files_div" class="py-0"></div>
+                        <p class="notification is-size-7 has-text-gray p-1" id="list_header">
+                            @if (count($dosyalar) > 0)
+                                {{ count($dosyalar) }} files to be uploaded
+                            @else
+                                No files to upload!
+                            @endif
+                        </p>
+                        <div id="files_div" class="py-0">
 
-                        {{-- <button class="button is-link is-light is-hidden" id="uploadButton">
-                            <span class="icon"><x-carbon-upload /></span>
-                            <span>Upload</span>
-                        </button> --}}
+                            @if (count($dosyalar) > 0)
+                                @foreach ($dosyalar as $dosya)
+
+                                <div class="tags has-addons my-0">
+                                    <a wire:click="removeFile('{{$dosya->getClientOriginalName()}}')" class="tag is-danger is-light is-delete"></a>
+                                    <span class="tag is-black is-light">{{$dosya->getClientOriginalName()}}</span>
+                                </div>
+                                    
+                                @endforeach
+                            @endif
+                        </div>
+
                     </div>
 
 
@@ -74,9 +84,7 @@
                 </div>
 
                 <div class="column has-text-right">
-
-
-                    <button class="button is-link is-light is-hidden" id="uploadButton">
+                    <button class="button is-link is-light {{ count($dosyalar) < 1 ? 'is-hidden': ''}}" id="uploadButton">
                         <span class="icon"><x-carbon-upload /></span>
                         <span>Upload</span>
                     </button>

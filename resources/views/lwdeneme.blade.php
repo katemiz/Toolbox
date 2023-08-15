@@ -7,7 +7,9 @@
 
 
 
-        @livewire('attachment-component', ['model' => 'Article','modelId' => '34'])
+        {{-- @livewire('attachment-component', ['model' => 'Article','modelId' => '34']) --}}
+
+        <livewire:attachment-component model="Article" modelId="34" />
 
 
 
