@@ -23,6 +23,12 @@ Route::get('/', function () {
 
 
 
+Route::get('/lwdeneme', function () {
+    return view('lwdeneme');
+});
+
+
+
 // Route::middleware(['auth'])->group(function () {
 
 
