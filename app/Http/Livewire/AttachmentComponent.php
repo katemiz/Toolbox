@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\On; 
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -15,32 +16,21 @@ use App\Models\Attachment;
 
 class AttachmentComponent extends Component
 {
+    public $idAttach;
     public $model;
     public $modelId;
 
-    // public $filesToUpload;
     public $dosyalar = [];
 
     use WithFileUploads;
 
     public function render()
     {
-
-
         return view('livewire.attachment-component',[
             'attachments' => Attachment::all()
         ]);
     }
 
-
-    // public function getNames()
-    // {
-
-    //     if ($this->dosyalar) {
-    //         dd($this->dosyalar);
-
-    //     }
-    // }
 
 
     public function removeFile($fileToRemove) {
@@ -48,19 +38,60 @@ class AttachmentComponent extends Component
         foreach ($this->dosyalar as $key => $dosya) {
             
             if ($dosya->getClientOriginalName() == $fileToRemove) {
-
                 unset($this->dosyalar[$key]);
-
             }
         }
     }
 
 
+    public function deleteAttachConfirm($idAttach) {
+
+        $this->idAttach = $idAttach;
+
+        $this->dispatch('runConfirmDialog', title:'Do you really want to delete this file ?',text:'Once deleted, there is no turning back!');
+    }
+
+    #[On('runDelete')] 
+    public function deleteAttach() {
+
+        Attachment::find($this->idAttach)->delete();
+
+        session()->flash('message','File Deleted Successfully!!');
+
+        $this->dispatch('infoDeleted');
+    }
+
+    public function downloadFile($idAttach) {
+
+        $d = Attachment::find($idAttach);
+
+        if (!$this->checkPermission()) {
+            abort(404, 'No permission!');
+        }
+
+        $dosya = Storage::path($d->stored_file_as);
+
+        if (file_exists($dosya)) {
+            $headers = [
+                'Content-Type' => $d->mime_type,
+            ];
+
+            return response()->download(
+                $dosya,
+                $d->original_file_name,
+                $headers,
+                'inline'
+            );
+        } else {
+            abort(404, 'File not found!');
+        }
+    }
+
+    
+
+
     public function uploadAttach(Request $request)
     {
-
-
-
         foreach ($this->dosyalar as $dosya) {
 
             $props['user_id'] = 1;//Auth::id();
@@ -80,11 +111,17 @@ class AttachmentComponent extends Component
         }
 
         $this->reset('dosyalar');
-
-
     }
 
 
+    public function checkPermission()
+    {
+        if ( Auth::id() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 
