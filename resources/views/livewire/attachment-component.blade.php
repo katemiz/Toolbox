@@ -22,9 +22,6 @@
             })
         });
 
-
-
-
         window.addEventListener('infoDeleted',function(e) {
 
             Swal.fire({
@@ -35,19 +32,14 @@
                 timer: 1500
             })
         })
-
-
-
-
-
-
     </script>
 
 
     <div class="column">
 
-        @if ($attachments->count() > 0)
         <p class="subtitle">Attachments</p>
+
+        @if ($attachments->count() > 0)
 
         <table class="table is-fullwidth is-size-7">
 
@@ -113,15 +105,12 @@
                                 <a wire:click="removeFile('{{$dosya->getClientOriginalName()}}')" class="tag is-danger is-light is-delete"></a>
                                 <span class="tag is-black is-light">{{$dosya->getClientOriginalName()}}</span>
                             </div>
-                                
+
                             @endforeach
                         @endif
                     </div>
 
                 </div>
-
-
-
             </div>
 
             <div class="column has-text-right">
