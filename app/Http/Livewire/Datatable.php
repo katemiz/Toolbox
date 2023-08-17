@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On; 
 
 use App\Models\Article;
 use App\Models\User;
@@ -14,6 +15,7 @@ class Datatable extends Component
 {
     use WithPagination;
 
+    public $idItem;
     public $title;
     public $subtitle;
 
@@ -56,4 +58,31 @@ class Datatable extends Component
     public function resetFilter() {
         $this->reset('search');
     }
+
+
+    public function deleteConfirm($idItem) {
+        $this->idItem = $idItem;
+        $this->dispatch('runConfirmDialog11', title:'Do you really want to delete this item ?',text:'Once deleted, there is no turning back!');
+    }
+
+    #[On('runDelete11')] 
+    public function deleteItem() {
+
+
+        switch ($this->model) {
+
+            case 'Article':
+                Article::find($this->idItem)->delete();
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+
+
+        $this->dispatch('infoDeleted11');
+    }
+
 }

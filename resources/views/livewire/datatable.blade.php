@@ -1,5 +1,41 @@
 <div>
 
+    <script>
+
+        window.addEventListener('runConfirmDialog11',function(e) {
+
+            Swal.fire({
+                title: e.detail.title,
+                text: e.detail.text,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Ooops ...',
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.Livewire.dispatch('runDelete11')
+                } else {
+                    return false
+                }
+            })
+        });
+
+        window.addEventListener('infoDeleted11',function(e) {
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Item has been deleted',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+
+    </script>
+
     <header class="mb-6">
         <h1 class="title has-text-weight-light is-size-1">{{ $configs['list']['title'] }}</h1>
 
@@ -133,7 +169,7 @@
 
                         @switch($act)
                             @case('r')
-                                <a wire:click="viewArticle({{ $record->id}})">
+                                <a href="{{ $route}}{{ $record->id}}">
                                 <span class="icon"><x-carbon-view/></span>
                                 </a>
                                 @break

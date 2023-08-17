@@ -52,9 +52,9 @@ return [
 
         ],
         "actions" => [
-            "r" => "/requirements/view/",
-            "w" => "/requirements/form/",
-            "x" => "/requirements/delete/"
+            "r" => "/articles/view/",
+            "w" => "/articles/form/",
+            "x" => "/articles/delete/"
         ],
 
         "noitem" => "No articles found in database yet!",
