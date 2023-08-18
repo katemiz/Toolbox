@@ -52,7 +52,7 @@ return [
 
         ],
         "actions" => [
-            "r" => "/articles/view/",
+            "r" => "/articles/",
             "w" => "/articles/form/",
             "x" => "/articles/delete/"
         ],
