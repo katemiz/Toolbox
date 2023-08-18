@@ -30,6 +30,12 @@
                     <span>Calculate</span>
                 </a>
 
+                <a href="/endproducts" class="navbar-item icon-text">
+                    <span class="icon has-text-link">
+                        <x-carbon-radio />
+                    </span>
+                    <span>End Products</span>
+                </a>
 
                 <a href="/articles" class="navbar-item icon-text">
                     <span class="icon has-text-link">

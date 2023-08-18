@@ -5,7 +5,7 @@
 
 
 
-        @livewire('datatable', ['model' => 'CustomerDrawing'])
+        @livewire('datatable', ['model' => 'CustomerData'])
         {{-- @livewire('attachment-component', ['model' => 'Article','modelId' => '34']) --}}
 
 

@@ -5,7 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CustomerDrawing extends Model
+class CustomerData extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'prop1',
+        'prop2'
+    ];
 }

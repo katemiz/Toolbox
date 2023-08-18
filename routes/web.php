@@ -6,6 +6,8 @@ use App\Http\Livewire\Calculation;
 use App\Http\Livewire\Articles;
 
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\EndProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,8 +52,15 @@ Route::get('/lwdeneme', function () {
 
 
     Route::get('/articles', Articles::class);
-
     Route::get('/articles/{idArticle}', Articles::class);
+
+
+    Route::get('/endproducts', function () {
+        return view('end_product.ep-list');
+    });
+    Route::get('/endproducts/{id}', [EndProductController::class,'view']);
+    Route::get('/endproducts/form/{id?}', [EndProductController::class,'form']);
+
 
     // MAIL
     Route::get('send-mail', [MailController::class, 'index']);

@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\On; 
 
 use App\Models\Article;
+use App\Models\EndProduct;
 use App\Models\User;
 
 
@@ -43,6 +44,19 @@ class Datatable extends Component
                 ->paginate(env('RESULTS_PER_PAGE'));
                 break;
 
+
+
+            case 'EndProduct':
+                $this->sortField = 'prop1';
+                $this->configs = config('endproducts');
+
+                $items = Article::where('prop1', 'LIKE', "%".$this->search."%")
+                ->orWhere('prop1', 'LIKE', "%".$this->search."%")
+                ->orderBy($this->sortField,$this->sortDirection)
+                ->paginate(env('RESULTS_PER_PAGE'));
+                break;
+
+
             default:
                 # code...
                 break;
@@ -73,6 +87,10 @@ class Datatable extends Component
 
             case 'Article':
                 Article::find($this->idItem)->delete();
+                break;
+
+            case 'EndProduct':
+                EndProduct::find($this->idItem)->delete();
                 break;
 
             default:
