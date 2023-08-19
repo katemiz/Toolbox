@@ -169,7 +169,7 @@
 
                         @switch($act)
                             @case('r')
-                                <a href="{{ $route}}{{ $record->id}}">
+                                <a href="{{ $route}}/{{ $record->id}}">
                                 <span class="icon"><x-carbon-view/></span>
                                 </a>
                                 @break

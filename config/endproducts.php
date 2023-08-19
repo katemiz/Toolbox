@@ -53,8 +53,8 @@ return [
         ],
         "actions" => [
             "r" => "/endproducts",
-            "w" => "/endproducts/form/",
-            "x" => "/endproducts/delete/"
+            "w" => "/endproducts-form/",
+            "x" => "/endproducts-delete/"
         ],
 
         "noitem" => "No end products found in database yet!",
@@ -89,7 +89,7 @@ return [
         ]
     ],
 
-    "cu_route" => "/requirements/store/",
+    "cu_route" => "/endproducts-store/",
 
     "form" => [
 

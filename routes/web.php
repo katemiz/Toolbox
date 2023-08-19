@@ -59,7 +59,9 @@ Route::get('/lwdeneme', function () {
         return view('end_product.ep-list');
     });
     Route::get('/endproducts/{id}', [EndProductController::class,'view']);
-    Route::get('/endproducts/form/{id?}', [EndProductController::class,'form']);
+    Route::get('/endproducts-form/{id?}', [EndProductController::class,'form']);
+    Route::post('/endproducts-store/{id?}', [EndProductController::class,'store']);
+
 
 
     // MAIL
