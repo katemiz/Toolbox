@@ -21,15 +21,15 @@ return [
 
         "headers" => [
 
-            "id"=> [
-                "title" => "#",
+            "number"=> [
+                "title" => "Part No",
                 "sortable" => true,
                 "align" => "left",
                 "direction" => "asc"
             ],
 
-            "prop1"=> [
-                "title" => "Property 1",
+            "description"=> [
+                "title" => "Product Title/Description",
                 "sortable" => false,
                 "align" => "left",
                 "direction" => "asc"

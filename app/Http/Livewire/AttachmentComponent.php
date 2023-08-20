@@ -19,6 +19,9 @@ class AttachmentComponent extends Component
     public $idAttach;
     public $model;
     public $modelId;
+    public $isMultiple = false;
+    public $tag = false;
+    public $canEdit = false;
 
     public $dosyalar = [];
 
@@ -26,8 +29,22 @@ class AttachmentComponent extends Component
 
     public function render()
     {
+
+        if ($this->tag) {
+            $available_files = Attachment::where('model_name',$this->model)
+            ->where('model_item_id',$this->modelId)
+            ->where('tag',$this->tag)
+            ->get(); 
+        } else {
+            $available_files = Attachment::where('model_name',$this->model)
+            ->where('model_item_id',$this->modelId)
+            ->get(); 
+        }
+
         return view('livewire.attachment-component',[
-            'attachments' => Attachment::all()
+            'attachments' => $available_files,
+            'isMultiple' => $this->isMultiple,
+            'tag' => $this->tag
         ]);
     }
 
@@ -100,6 +117,7 @@ class AttachmentComponent extends Component
             $props['original_file_name'] = $dosya->getClientOriginalName();
             $props['mime_type'] = $dosya->getMimeType();
             $props['file_size'] = $dosya->getSize();
+            $props['tag'] = $this->tag;
 
             $path = $props['model_name'].'/'.$props['model_item_id'];
 

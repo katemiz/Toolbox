@@ -57,39 +57,60 @@
                                     <span class="icon is-small"><x-carbon-list /></span>
                                   </button>
                                 </p>
+
                                 <p class="control ml-5">
-                                  <button class="button is-link is-light is-small" wire:click="addArticle()">
+                                  <a href="/endproducts-form/" class="button is-link is-light is-small">
                                     <span class="icon is-small"><x-carbon-add /></span>
                                     <span>Add New</span>
-                                  </button>
+                                  </a>
                                 </p>
-        
+
+
+                                @if ($canEdit)
                                 <p class="control ml-1">
-                                    <button class="button is-link is-light is-small" wire:click="editArticle({{ $ep->id }})">
+                                    <a href="/endproducts-form/{{ $ep->id }}" class="button is-link is-light is-small">
                                       <span class="icon is-small"><x-carbon-edit /></span>
                                       <span>Edit</span>
+                                    </a>
+                                </p>
+
+                                <p class="control ml-1">
+                                    <button class="button is-danger is-light is-small" wire:click="deleteConfirm({{ $ep->id }})">
+                                        <span class="icon is-small"><x-carbon-trash-can /></span>
+                                        <span>Delete</span>
                                     </button>
                                 </p>
+                                @endif
+
+
+
+
         
                             </div>
         
                         </div>
                         <div class="column has-text-right">
                             <div class="field has-addons is-pulled-right">
+
+                                @if ($ep->status === 'wip')
+                                    <p class="control ml-1">
+                                    <button class="button is-dark is-light is-small" wire:click="startRelease({{ $ep->id }})">
+                                        <span class="icon has-text-warning is-small"><x-carbon-stamp /></span>
+                                        <span>Release</span>
+                                    </button>
+                                    </p>                                    
+                                @endif
         
-                                <p class="control ml-1">
-                                <button class="button is-dark is-light is-small" wire:click="startRelease({{ $ep->id }})">
-                                    <span class="icon has-text-warning is-small"><x-carbon-stamp /></span>
-                                    <span>Release</span>
-                                </button>
-                                </p>
-        
+
+                                @if ($ep->status === 'released')
                                 <p class="control ml-1">
                                 <button class="button is-dark is-light is-small" wire:click="addArticle()">
                                     <span class="icon is-small"><x-carbon-change-catalog /></span>
                                     <span>Revise</span>
                                 </button>
                                 </p>
+                                @endif
+
         
                             </div>
                         </div>
@@ -103,30 +124,73 @@
                 <div class="media">
                     <div class="media-left">
                       <figure class="image is-48x48">
-                        <x-carbon-globe />
+                        <x-carbon-box />
                       </figure>
                     </div>
                     <div class="media-content">
-                      <p class="title is-4"> {{ $ep->product_no }}</p>
+                      <p class="title is-4"> {{ $ep->number }}-{{ sprintf('%02d', $ep->version) }}</p>
                       <p class="subtitle is-6">{{ $ep->description}}</p>
                     </div>
                 </div>
         
         
-        
-                HU-{{ $ep->id }}
-                {{ $ep->prop1 }}
-                {{ $ep->prop2 }}
-        
-        
-                <div class="content has-text-right">
-        
-                    <button class="button is-danger is-light is-small" wire:click="deleteConfirm({{ $ep->id }})">
-                    <span class="icon is-small"><x-carbon-trash-can /></span>
-                    <span>Delete</span>
-                    </button>
-        
+
+
+                @if ( strlen($ep->remarks) > 0)
+                <div class="notification">
+                    {!! $ep->remarks !!}
                 </div>
+                @endif
+
+
+                {{-- @if ($attachments->count() > 0)
+
+                <table class="table is-fullwidth is-size-7">
+        
+                    @foreach ($attachments as $key => $attachment)
+                    <tr class="my-0">
+                        <td class="is-narrow">{{ ++$key }}</td>
+                        <td>
+                            <a wire:click="downloadFile('{{ $attachment->id }}')">{{ $attachment->original_file_name }}</a>
+                        </td>
+                        <td class="is-narrow">{{ $attachment->mime_type }}</td>
+                        <td class="is-narrow">{{ $attachment->file_size }}</td>
+                    </tr>
+                    @endforeach
+        
+                </table>
+                @endif --}}
+
+                <div class="field">
+
+                    <label class="label" for="description">
+                        3D Customer Model (in STEP format)
+                    </label>
+                
+                    @livewire('attachment-component', [
+                        'model' => 'EndProduct',
+                        'modelId' => $ep ? $ep->id : '' ,
+                        'isMultiple'=> false,
+                        'tag' => '3DShell',
+                        'canEdit' => $canEdit], '3DShell')
+                </div>
+
+
+                <div class="field">
+
+                    <label class="label" for="description">
+                        Customer Drawing (in PDF format)
+                    </label>
+                
+                    @livewire('attachment-component', [
+                        'model' => 'EndProduct',
+                        'modelId' => $ep ? $ep->id : '' ,
+                        'isMultiple'=> false,
+                        'tag' => 'CustomerData',
+                        'canEdit' => $canEdit], 'CustomerData')
+                </div>
+        
+        
         
             </div>
         

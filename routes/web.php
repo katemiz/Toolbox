@@ -64,6 +64,7 @@ Route::get('/lwdeneme', function () {
 
 
 
+
     // MAIL
     Route::get('send-mail', [MailController::class, 'index']);
 

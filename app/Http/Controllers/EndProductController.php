@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Attachment;
 use App\Models\Counter;
 use App\Models\EndProduct;
 
@@ -16,9 +17,14 @@ class EndProductController extends Controller
     {
         $ep = EndProduct::find(request('id'));
 
+        $attachments = Attachment::where('model_name','EndProduct')->where('model_item_id',request('id'))->get(); 
+
+
         return view('end_product.ep-view',[
 
-            'ep' => $ep
+            'ep' => $ep,
+            'attachments' => $attachments,
+            'canEdit' => true
 
         ]);
 
@@ -56,7 +62,7 @@ class EndProductController extends Controller
 
         //$props['user_id'] = Auth::id();
         $props['description'] = $validated['description'];
-        // $props['remarks'] = $request->input('remarks');
+        $props['remarks'] = $request->input('remarks');
 
         if ( isset($request->id) && !empty($request->id)) {
             // update
@@ -65,8 +71,7 @@ class EndProductController extends Controller
             $ep = EndProduct::find($request->id);
         } else {
             // create
-            $props['product_no'] = $this->getProductNo();
-            $props['version'] = 0;
+            $props['number'] = $this->getProductNo();
 
             $ep = EndProduct::create($props);
             $id = $ep->id;
@@ -77,11 +82,16 @@ class EndProductController extends Controller
 
 
 
+
+
+
     public function getProductNo() {
 
         $counter = Counter::find(1111);
+        $new_no = $counter->product_no+1;
+        $counter->update(['product_no' => $new_no]);         // Update Counter
 
-        return $counter->product_no+1;
+        return $new_no;
     }
 
 

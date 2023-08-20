@@ -1,4 +1,7 @@
 <x-layout>
+
+    <script src="{{ asset('/js/ckeditor5/ckeditor.js') }}"></script>
+
     <div class="section container">
 
         @if ($ep)
@@ -26,6 +29,13 @@
         <form action="{{ config('endproducts.cu_route') }}{{ $ep ? $ep->id : '' }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+
+        @if ($ep)
+        <div class="title">
+            {{ $ep->number }}-{{ sprintf('%02d', $ep->version) }}
+        </div>
+        @endif
+
         <div class="field">
 
             <label class="label" for="description">
@@ -39,9 +49,33 @@
                     name="description"
                     id="description"
                     type="text"
+                    value="{{ $ep ? $ep->description : ''}}"
                     placeholder="Product name/description" required>
             </div>
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+            @error('description')
+            <div class="notification is-danger is-light is-size-7 p-1 mt-1">{{ $message }}</div>
+            @enderror
         </div>
+
+
+        <x-editor :params="config('endproducts.form.remarks')" value="{{ $ep ? $ep->remarks : '' }}"/>
+
+
+
+
+
+
         
         <div class="buttons is-right">
             @if ($ep)
@@ -52,5 +86,8 @@
         </div>
     
         </form>
+
+
+
     </div>
 </x-layout>

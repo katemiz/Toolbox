@@ -12,9 +12,10 @@ class EndProduct extends Model
     protected $table = 'endproducts';
 
     protected $fillable = [
-        'product_no',
+        'number',
         'version',
-        'description'
+        'description',
+        'remarks'
     ];
 }
 

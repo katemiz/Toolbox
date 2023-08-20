@@ -47,11 +47,11 @@ class Datatable extends Component
 
 
             case 'EndProduct':
-                $this->sortField = 'prop1';
+                $this->sortField = 'description';
                 $this->configs = config('endproducts');
 
-                $items = Article::where('prop1', 'LIKE', "%".$this->search."%")
-                ->orWhere('prop1', 'LIKE', "%".$this->search."%")
+                $items = EndProduct::where('description', 'LIKE', "%".$this->search."%")
+                // ->orWhere('remarks', 'LIKE', "%".$this->search."%")
                 ->orderBy($this->sortField,$this->sortDirection)
                 ->paginate(env('RESULTS_PER_PAGE'));
                 break;

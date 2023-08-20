@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('mime_type');
             $table->string('file_size');
             $table->string('stored_file_as');
+            $table->string('tag');
             $table->timestamps();
         });
     }

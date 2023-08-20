@@ -1,4 +1,4 @@
-<div class="column box">
+<div class="control">
 
     <script>
         window.addEventListener('runConfirmDialog',function(e) {
@@ -35,36 +35,50 @@
     </script>
 
 
-    <div class="column">
 
-        <p class="subtitle">Attachments</p>
 
-        @if ($attachments->count() > 0)
+    @if ($attachments->count() > 0)
+        <div class="column">
+
+        {{-- <p class="subtitle">Attachments</p> --}}
 
         <table class="table is-fullwidth is-size-7">
 
             @foreach ($attachments as $key => $attachment)
             <tr class="my-0">
-                <td class="is-narrow">{{ ++$key }}</td>
+                <td class="is-narrow">
+                    @if ($isMultiple)
+                        {{ ++$key }}
+                    @else
+                        <span class="icon"><x-carbon-attachment /></span>
+                    @endif
+                </td>
                 <td>
                     <a wire:click="downloadFile('{{ $attachment->id }}')">{{ $attachment->original_file_name }}</a>
                 </td>
                 <td class="is-narrow">{{ $attachment->mime_type }}</td>
                 <td class="is-narrow">{{ $attachment->file_size }}</td>
+
+                @if ($canEdit)
                 <td class="is-narrow has-text-right">
                     <a wire:click="deleteAttachConfirm('{{$attachment->id}}')">
                         <span class="icon is-small has-text-danger"><x-carbon-trash-can /></span>
                     </a>
                 </td>
+                @endif
+
             </tr>
             @endforeach
 
         </table>
-        @endif
+        </div>
+    @else
+    <p>{{ $isMultiple ? 'No files' : 'No file' }}</p>
+    @endif
 
-    </div>
 
-    <div class="column">
+    @if ($canEdit)
+    <div class="content">
 
         {{-- @role(config('requirements.roles.w')) --}}
 
@@ -79,23 +93,28 @@
                             type="file"
                             wire:model="dosyalar"
                             id="fupload"
-                            multiple
-                                />
+                            {{ $isMultiple ? 'multiple' : '' }} />
                         <span class="file-cta">
                             <span class="file-icon"><x-carbon-document-multiple-02 /></span>
-                            <span class="file-label has-text-centered">Add Files</span>
+                            <span class="file-label has-text-centered">{{ $isMultiple ? 'Add Files' : 'File' }}</span>
                         </span>
                     </label>
                 </div>
 
                 <div class="column">
-                    <p class="notification is-size-7 has-text-gray p-1" id="list_header">
-                        @if (count($dosyalar) > 0)
-                            {{ count($dosyalar) }} files to be uploaded
-                        @else
-                            No files to upload!
-                        @endif
-                    </p>
+                    
+                    @if (count($dosyalar) > 1 && $isMultiple)
+                        <p class="notification is-size-7 has-text-gray p-1">
+                        {{ count($dosyalar) }} files to be uploaded
+                        </p>
+                    @endif
+
+                    @if (count($dosyalar) < 1 )
+                        <p class="notification is-size-7 has-text-gray p-1">
+                        {{ $isMultiple && count($dosyalar) < 1 ? 'No files to upload!' : 'No file to upload!' }}
+                        </p>
+                    @endif
+
                     <div id="files_div" class="py-0">
 
                         @if (count($dosyalar) > 0)
@@ -111,13 +130,14 @@
                     </div>
 
                 </div>
-            </div>
 
-            <div class="column has-text-right">
-                <button class="button is-link is-light {{ count($dosyalar) < 1 ? 'is-hidden': ''}}" id="uploadButton">
-                    <span class="icon"><x-carbon-upload /></span>
-                    <span>Upload</span>
-                </button>
+                <div class="column is-narrow">
+                    <button class="button is-link {{ count($dosyalar) < 1 ? 'is-hidden': ''}}" id="uploadButton">
+                        <span class="icon"><x-carbon-upload /></span>
+                        <span>Upload</span>
+                    </button>
+                </div>
+
             </div>
 
             @error('dosyalar') <span class="error">{{ $message }}</span> @enderror
@@ -127,5 +147,6 @@
         {{-- @endrole --}}
 
     </div>
+    @endif
 
 </div>
