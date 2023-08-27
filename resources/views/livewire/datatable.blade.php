@@ -224,7 +224,7 @@
     </table>
 
 
-    {{ $items->links('pagination.bulma') }}
+    {{ $items->links('components.pagination.bulma') }}
 
     @else
         <div class="notification is-warning is-light">{{ $configs['list']['noitem'] }}</div>
