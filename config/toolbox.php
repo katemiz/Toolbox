@@ -19,6 +19,11 @@ return [
         "subtitle" => "Wind Pressure and Force Calculation"
     ],
 
+    "torsion-deflection" => [
+        "title" => "Torsional Deflection",
+        "subtitle" => "Torsional Deflection of Circular Beams"
+    ],
+
     "welcome" => [
         "title" => "Engineering Utilities",
         "subtitle" => "Everyday hands-on utilities for engineers"

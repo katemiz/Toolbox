@@ -9,6 +9,11 @@
       <li><a  wire:click="menuClick('area-inertia')">Area Inertia</a></li>
     </ul>
 
+    <p class="menu-label">Torsional Deflection</p>
+    <ul class="menu-list">
+      <li><a  wire:click="menuClick('torsion-deflection')">Torsional Deflection</a></li>
+    </ul>
+
 
 
 </aside>
